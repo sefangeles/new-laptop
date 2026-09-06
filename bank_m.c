@@ -31,6 +31,10 @@ void updateAccount();
 void deleteAccount();
 void saveAccount();
 void loadAccount();
+void refreshScreen();
+
+
+
 
 int main(){
 
@@ -40,6 +44,8 @@ int main(){
     loadAccount();
 
     while (true) {
+        refreshScreen();
+
         printf("\nWelcome to the Bank Management System\n");
         printf("1. Create Account\n");
         printf("2. View Account\n");
@@ -52,34 +58,72 @@ int main(){
         printf("9. Exit\n");
 
 
-        scanf("%d", &choice);   
+        if(scanf("%d", &choice) != 1){
+            while(getchar() != '\n');
+            continue;
+        }  
+        
+        
+        refreshScreen();
 
         switch(choice) {
             case 1:
                 createAccount();
+
+                printf("Press Enter to return to Main Menu...");
+                while (getchar() != '\n'); 
+                getchar();
                 break;
             case 2:
                 viewAccount();
+
+                printf("Press Enter to return to Main Menu...");
+                while (getchar() != '\n'); 
+                getchar();
                 break;
             case 3:
                 deposit();
+
+                printf("Press Enter to return to Main Menu...");
+                while (getchar() != '\n'); 
+                getchar();
                 break;
             case 4:
                 withdraw();
+
+                printf("Press Enter to return to Main Menu...");
+                while (getchar() != '\n'); 
+                getchar();
                 break;
             case 5:
                 checkBalance();
+
+                printf("Press Enter to return to Main Menu...");
+                while (getchar() != '\n'); 
+                getchar();
                 break;
             case 6:
                 searchAccount();
+
+                printf("Press Enter to return to Main Menu...");
+                while (getchar() != '\n'); 
+                getchar();
                 break;
 
             case 7:
                 updateAccount();
+
+                printf("Press Enter to return to Main Menu...");
+                while (getchar() != '\n'); 
+                getchar();
                 break;
             
             case 8:
                 deleteAccount();
+
+                printf("Press Enter to return to Main Menu...");
+                while (getchar() != '\n'); 
+                getchar();
                 break;
 
             case 9:
@@ -88,6 +132,12 @@ int main(){
                 printf("Exiting the program.\n");
                 
                 exit(0);
+
+            default:
+                printf("Invalid option, try again!");
+                printf("Press Enter to return to Main Menu...");
+                while(getchar()!="\n");
+                getchar();
 
         }
 
@@ -100,30 +150,31 @@ void createAccount()
 {
     accounts[accountCount].accountNumber = nextAccountNumber;
     nextAccountNumber;
+    intf("\n========== VIEW ACCOUNT ==========\n");
 
     printf("Name: ");
-    scanf("%s", &accounts[accountCount].name);
+    scanf("%s", accounts[accountCount].name);
 
     printf("Age: ");
     scanf("%d", &accounts[accountCount].age);
 
     printf("Address: ");
-    scanf(" %[^\n]", &accounts[accountCount].address);
+    scanf(" %[^\n]", accounts[accountCount].address);
 
     printf("Contact Number: ");
-    scanf("%s", &accounts[accountCount].contact);
+    scanf("%s", accounts[accountCount].contact);
 
-    printf("Account Type [Saving/Current]: ");
-    scanf(" %[^\n]", &accounts[accountCount].accountType);
+    printf("Account Type [Savings/Current]: ");
+    scanf(" %[^\n]", accounts[accountCount].accountType);
 
     printf("Enter Initial Deposit: ");
-    scanf("%d", &accounts[accountCount].balance);
+    scanf("%f", &accounts[accountCount].balance);
     
 
     printf("Account Successfully Created!\n");
-    printf("Your Account Number: %d", accounts[accountCount].accountNumber);
+    printf("Your Account Number: %d\n", accounts[accountCount].accountNumber);
     
-
+    
     accountCount ++;
 
     saveAccount();
@@ -453,3 +504,7 @@ void loadAccount()
     fclose(file);
 }
 
+void refreshScreen(){
+    printf("\033[H\033[J");
+    fflush(stdout);
+}
