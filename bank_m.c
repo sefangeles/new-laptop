@@ -2,7 +2,7 @@
 #include <string.h>
 #include <stdbool.h>
 #include <stdlib.h>
-
+#define FILE_NAME "bank_m.txt"
 
 
 struct account {
@@ -14,7 +14,6 @@ struct account {
     char accountType[20];
     float balance;
 };
-
 
 
 struct account accounts[100];
@@ -29,10 +28,15 @@ void checkBalance();
 void searchAccount();
 void updateAccount();
 void deleteAccount();
+void saveAccount();
+void loadAccount();
 
 int main(){
 
     int choice;
+
+
+    loadAccount();
 
     while (true) {
         printf("\nWelcome to the Bank Management System\n");
@@ -78,7 +82,10 @@ int main(){
                 break;
 
             case 9:
+                saveAccount();
+
                 printf("Exiting the program.\n");
+                
                 exit(0);
 
         }
@@ -90,8 +97,7 @@ int main(){
 
 void createAccount()
 {
-    printf("Enter account number: ");
-    scanf("%d", &accounts[accountCount].accountNumber);
+    accounts[accountCount].accountNumber = 100001 + accountCount;
 
     printf("Name: ");
     scanf("%s", &accounts[accountCount].name);
@@ -110,10 +116,17 @@ void createAccount()
 
     printf("Enter Initial Deposit: ");
     scanf("%d", &accounts[accountCount].balance);
+    
+
+    printf("Account Successfully Created!\n");
+    printf("Your Account Number: %d", accounts[accountCount].accountNumber);
+    
 
     accountCount ++;
 
-    printf("Account Successfully Created!\n");
+    saveAccount();
+
+    
 }
 
 void viewAccount()
@@ -184,6 +197,7 @@ void deposit()
                     accounts[accountCount].balance += amount;
 
                     printf("Deposit succesfully\n");
+                    saveAccount();
                     printf("New balance: %.2f", accounts[accountCount].balance);
                 }
 
@@ -230,6 +244,7 @@ void withdraw()
                 else {
                     accounts[accountCount].balance -= amount;
                     printf("Withdraw sucessfully\n");
+                    saveAccount();
                     printf("New balance: %.2f", accounts[accountCount].balance);
                 }
                 
@@ -341,8 +356,11 @@ void updateAccount()
         
             found = true;
             
+            saveAccount();
+
             printf("Account Successfully Updated!\n");
 
+            
         }
     }
     if(!found){
@@ -369,7 +387,11 @@ void deleteAccount()
             
             accountCount--;
 
+            saveAccount();
+
             printf("Account deleted successfully!\n");
+
+            
 
             break;
         }
@@ -378,3 +400,54 @@ void deleteAccount()
         }
     }
 }
+
+void saveAccount()
+    {
+        FILE *file;
+
+        file = fopen("bank_m.txt", "w");
+
+        if(file=NULL){
+            printf("No file, Return.");
+            return;
+        }
+
+        for ( int i = 0; i < accountCount; i++){
+
+            fprintf(file, "%d|%s|%d|%s|%s|%s|%.2f\n|",
+            accounts[i].accountNumber,
+            accounts[i].name,
+            accounts[i].age,
+            accounts[i].address,
+            accounts[i].contact,
+            accounts[i].accountType,
+            accounts[i].balance );
+        }
+        fclose(file);
+    }
+
+void loadAccount()
+{
+    FILE *file;
+    file = fopen("bank_m.txt", "r");
+    
+
+    if (file=NULL){
+        printf("No file, Return.");
+            return;
+    }
+
+    while(accountCount < 100 &&
+                fscanf(file, "%d|%49[^|]|%d|%99[^|]|%19[^|]|%19[^|]|%f\n",
+                  &accounts[accountCount].accountNumber,
+                  accounts[accountCount].name,
+                  &accounts[accountCount].age,
+                  accounts[accountCount].address,
+                  accounts[accountCount].contact,
+                  accounts[accountCount].accountType,
+                  &accounts[accountCount].balance) == 7) {
+    accountCount ++;
+    }
+    fclose(file);
+}
+
