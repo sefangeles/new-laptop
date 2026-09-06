@@ -4,9 +4,9 @@
 #include <string.h>
 
 int main(){
-    int studentCount, currentStudent, score, totalScore, highScore, lowScore,
+        int studentCount, currentStudent, score, totalScore, highScore, lowScore,
         aveScore, passCount, failCount;
-    char category[70];
+        char category[70];
         
         printf("Enter Number of Students: ");
         while (scanf("%d", &studentCount) != 1 || studentCount <= 0){
@@ -32,11 +32,11 @@ int main(){
                                 printf("Enter the SCORE of the Student: ");
                         }
 
-                            if(score >= 90){strcpy(category, "EXCELLENT");}
-                            else if(score >= 80){strcpy(category, "VERY GOOD");}
-                            else if(score >= 75){strcpy(category, "GOOD");}
-                            else if(score >= 60){strcpy(category, "NEEDS IMPROVEMENT");}
-                            else{strcpy(category, "FAIL");}
+                                if(score >= 90){strcpy(category, "EXCELLENT");}
+                                else if(score >= 80){strcpy(category, "VERY GOOD");}
+                                else if(score >= 75){strcpy(category, "GOOD");}
+                                else if(score >= 60){strcpy(category, "NEEDS IMPROVEMENT");}
+                                else{strcpy(category, "FAIL");}
 
                                 printf("Student %d\nCategory: %s\n", currentStudent + 1, category);
 
@@ -47,7 +47,7 @@ int main(){
 
                         if(score>=60){passCount++;} else{failCount++;}
 
-                    }
+                }
 
         aveScore = totalScore / studentCount;
 
