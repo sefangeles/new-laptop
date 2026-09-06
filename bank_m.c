@@ -16,9 +16,10 @@ struct account {
 };
 
 
+
 struct account accounts[100];
 int accountCount = 0;
-
+int nextAccountNumber = 100001;
 
 void createAccount();
 void viewAccount();
@@ -97,7 +98,8 @@ int main(){
 
 void createAccount()
 {
-    accounts[accountCount].accountNumber = 100001 + accountCount;
+    accounts[accountCount].accountNumber = nextAccountNumber;
+    nextAccountNumber;
 
     printf("Name: ");
     scanf("%s", &accounts[accountCount].name);
