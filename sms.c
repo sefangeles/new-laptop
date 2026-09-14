@@ -21,11 +21,87 @@ int rol = 20260001;
 
 
 int main(){
+
+    int choice; 
+
+    while (true){
     printf("\n===============System Management System================\n"
-           "1. Create Account\n"
-           "2. Create Account\n"
-           "3. Create Account\n"
-           "4. Create Account\n");
+        "1. Create Account\n"
+        "2. Find Student by Name\n"
+        "3. Find Student by Roll Number\n"
+        "4. Update Student\n"
+        "5. Delete Student\n"
+        "6. Total Students\n"
+        "7. Exit\n");
+
+        printf("\nEnter choice: ");
+
+        if(scanf("%d", &choice) != 1){
+            while(getchar() != '\n');
+            printf("Invalid input.\n");
+            continue;
+        }
+
+        ref_screen();
+
+
+        switch(choice){
+
+            case 1:
+                add_stud();
+
+                printf("\nPress Enter to return to Main Menu...");
+                while (getchar() != '\n');
+                getchar();
+                break;
+            case 2:
+                f_name();
+
+                printf("\nPress Enter to return to Main Menu...");
+                while (getchar() != '\n');
+                getchar();
+                break;
+
+            case 3:
+                f_rl();
+
+                printf("\nPress Enter to return to Main Menu...");
+                while (getchar() != '\n');
+                getchar();
+                break;
+            
+            case 4:
+                update();
+
+                printf("\nPress Enter to return to Main Menu...");
+                while (getchar() != '\n');
+                getchar();
+                break;
+            
+            case 5:
+                delete();
+
+            case 6:
+                total_s();
+            
+            case 7:
+
+                save();
+
+                printf("Exiting the program. \n");
+                exit(0);
+
+                
+            default:
+                printf("Invalid option, try again!");
+
+                printf("\nPress Enter to return to Main Menu...");
+                while(getchar() != '\n');
+                getchar();
+
+        }
+    }
+    
 }
 void load(){
     FILE *file;
