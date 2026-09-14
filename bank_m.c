@@ -192,17 +192,17 @@ void createAccount()
     scanf(" %99[^\n]", accounts[accountCount].address);
 
 
-    while (1){
+while (1){
 
-        printf("Contact Number: ");
-        scanf("%19s", accounts[accountCount].contact);
+    printf("Contact Number: ");
+    scanf("%19s", accounts[accountCount].contact);
 
-        if(strlen(accounts[accountCount].contact) >= 11){
-            break;
-        }
-
-        printf("Invalid contact number. Must be at least 11 digits.\n");
+    if(strlen(accounts[accountCount].contact) == 11){
+        break;
     }
+
+    printf("Invalid contact number. Must be exactly 11 digits.\n");
+}
 
 
     printf("Account Type [Savings/Current]: ");
