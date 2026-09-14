@@ -34,6 +34,7 @@ void ref_screen();
 int main(){
 
     int choice; 
+    int courseC;
 
     while (true){
     printf("\n===============System Management System================\n"
@@ -60,7 +61,7 @@ int main(){
 
             case 1:
                 addstud();
-
+                
                 printf("\nPress Enter to return to Main Menu...");
                 while (getchar() != '\n');
                 getchar();
@@ -188,8 +189,16 @@ void addstud(){
     scanf("%s", &studs[i].last);
     printf("Enter you CGPA: ");
     scanf("%.2f", &studs[i].CGPA);
-    printf("Course: ");
+    printf("==========Available Course==========="
+            "101 - Computer Programming"
+            "102 - Discrete Mathematics"
+            "103 - Computer Organization"
+            "104 - Web Development"
+            "105 - Database Systems"
+            );
     scanf("%s", &studs[i].course);
+
+            
 
         printf("\nAccount Successfully Created!\n");
         printf("Your Roll Number: %d\n", studs[i].roll_n);
