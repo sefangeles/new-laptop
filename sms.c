@@ -275,6 +275,24 @@ void totalS(){
 
 
 void update(){
+    int find;
+    bool found = false;
+
+
+    printf("Enter your Roll Number: ");
+    scanf("%d", &find);
+
+
+    for(int x = 0; x < i; i++){
+
+        if(studs[x].roll_n == find){
+
+
+            found = true;
+            break;
+
+        }
+    }
 
 }
 
