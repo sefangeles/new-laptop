@@ -20,6 +20,17 @@ int i = 0;
 int rol = 20260001;
 
 
+void addstud(void);
+void Frl(void);
+void Fname(void);
+void totalS();
+void save();
+void load();
+void update();
+void delete();
+void ref_screen();
+
+
 int main(){
 
     int choice; 
@@ -48,14 +59,14 @@ int main(){
         switch(choice){
 
             case 1:
-                add_stud();
+                addstud();
 
                 printf("\nPress Enter to return to Main Menu...");
                 while (getchar() != '\n');
                 getchar();
                 break;
             case 2:
-                f_name();
+                Fname();
 
                 printf("\nPress Enter to return to Main Menu...");
                 while (getchar() != '\n');
@@ -63,7 +74,7 @@ int main(){
                 break;
 
             case 3:
-                f_rl();
+                Frl();
 
                 printf("\nPress Enter to return to Main Menu...");
                 while (getchar() != '\n');
@@ -82,7 +93,7 @@ int main(){
                 delete();
 
             case 6:
-                total_s();
+                totalS();
             
             case 7:
 
@@ -111,6 +122,23 @@ void load(){
     if (file == NULL){
         printf("Student Account Not Found.");
     }
+
+
+    while(i < 100 && 
+        fscanf(file, 
+        "[%49[^|]|%20[^|]|%d|%f|%d",
+        studs[i].first,
+        studs[i].last,
+        &studs[i].roll_n,
+        &studs[i].CGPA,
+        &studs[i].course) == 5){
+            if(studs[i].roll_n >= rol){
+                rol = studs[i].roll_n + 1;
+            }
+            i++;
+        }
+
+        fclose(file);
 }
 
 void ref_screen(){
@@ -128,9 +156,21 @@ void save(){
         printf("Student Account Not Found.");
         
     }
+
+    for( int x = 0; x < i; x++){
+
+        fprintf(file,"%s|%s|%d|%f|%d",
+                studs[x].first,
+                studs[x].last,
+                studs[x].roll_n,
+                studs[x].CGPA,
+                studs[x].course);
+
+    }
+    fclose(file);
 }
 
-void add_stud(){
+void addstud(){
 
 
     if (i >= 50){
@@ -161,7 +201,7 @@ void add_stud(){
     
 }
 
-void f_rl(){
+void Frl(){
 
 
     int find;
@@ -191,9 +231,9 @@ void f_rl(){
 }
 }
 
-void f_name(){
+void Fname(){
     
-    char find[20] = 0;
+    char find[20];
     bool found = false;
 
     printf("Enter your First Name: ");
@@ -220,7 +260,7 @@ void f_name(){
 
 
 
-void total_s(){
+void totalS(){
 
     printf("The total number of students "
             "is %d\n", i);
