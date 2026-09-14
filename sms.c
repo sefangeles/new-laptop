@@ -6,7 +6,7 @@
 
 #define FILE_NAME "sms.txt" 
 
-int i = 0;
+
 struct student{
     char first[20];
     char last[20];
@@ -16,7 +16,17 @@ struct student{
 };
 
 struct student studs[50];
+int i = 0;
+int rol = 20260001;
 
+
+int main(){
+    printf("\n===============System Management System================\n"
+           "1. Create Account\n"
+           "2. Create Account\n"
+           "3. Create Account\n"
+           "4. Create Account\n");
+}
 void load(){
     FILE *file;
 
@@ -45,16 +55,33 @@ void save(){
 }
 
 void add_stud(){
+
+
+    if (i >= 50){
+        printf("Account storage is full.\n");
+        return;
+    }
+
+    studs[i].roll_n = rol;
+    rol++;
+
+
     printf("First Name: ");
     scanf("%s", &studs[i].first);
     printf("Last Name: ");
     scanf("%s", &studs[i].last);
-    printf("Enter Roll Number: ");
-    scanf("%d", &studs[i].roll_n);
     printf("Enter you CGPA: ");
     scanf("%.2f", &studs[i].CGPA);
     printf("Course: ");
     scanf("%s", &studs[i].course);
+
+        printf("\nAccount Successfully Created!\n");
+        printf("Your Roll Number: %d\n", studs[i].roll_n);
+
+    i++;
+
+    save();
+
     
 }
 
@@ -73,29 +100,68 @@ void f_rl(){
 
         if(studs[x].roll_n == find){
 
-            printf("NAME: %s %s\n", studs[i].first, studs[i].last);
-            printf("CGPA: %.2f\n", studs[i].CGPA);
-            printf("COURSE: %d", studs[i].course);
+            printf("NAME: %s %s\n", studs[x].first, studs[i].last);
+            printf("CGPA: %.2f\n", studs[x].CGPA);
+            printf("COURSE: %d", studs[x].course);
 
             found = true;
             break;
-           
+        
     }
 
     if (!found){
         printf("Roll Number not found..");
     }
 }
+}
 
 void f_name(){
+    
     char find[20] = 0;
     bool found = false;
 
-    printf("Enter your Roll Number: ");
+    printf("Enter your First Name: ");
     scanf("%d", &find);
 
+    for(int x = 0; x < i; x++){
+        if(studs[x].first == find)
+
+
+        printf("First Name: %s", studs[x].first);
+        printf("Last Name: %s", studs[x].last);
+        printf("Roll Number: %d", studs[x].roll_n);
+        printf("CGPA: %f", studs[x].CGPA);
+        printf("Course ID: %d", studs[x].course);
+
+
+        found = true;
+        break;
+
+
+    }
 
 }
 
 
 
+void total_s(){
+
+    printf("The total number of students "
+            "is %d\n", i);
+
+    printf("\nYou can only have maximum # "
+            "of 50 students\n");
+
+    printf("\nYou can have %d more students", 50 - i);
+    
+}
+
+
+
+void update(){
+
+}
+
+void delete(){
+    printf("");
+}
