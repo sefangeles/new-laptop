@@ -61,7 +61,7 @@ int main(){
 
             case 1:
                 addstud();
-                
+
                 printf("\nPress Enter to return to Main Menu...");
                 while (getchar() != '\n');
                 getchar();
@@ -296,15 +296,65 @@ void update(){
 
         if(studs[x].roll_n == find){
 
+            printf("First Name: ");
+            scanf("%s", &studs[i].first);
 
+            printf("Last Name: ");
+            scanf("%s", &studs[i].last);
+
+            printf("Enter you CGPA: ");
+            scanf("%.2f", &studs[i].CGPA);
+
+            printf("==========Available Course==========="
+                    "101 - Computer Programming"
+                    "102 - Discrete Mathematics"
+                    "103 - Computer Organization"
+                    "104 - Web Development"
+                    "105 - Database Systems"
+                    );
+            scanf("%d", &studs[i].course);
             found = true;
             break;
 
         }
     }
+    
+    if (!found){
+        printf("Account not found.\n");
+    }
 
 }
 
 void delete(){
-    printf("");
+
+
+    int find;
+    bool found = false;
+
+
+    printf("Enter your Roll Number: ");
+    scanf("%d", &find);
+
+    for(int x = 0; x < i; i++){
+
+        if(studs[x].roll_n == find){
+            found = true;
+
+
+            for(int j = x; j < i - 1; j++){
+                studs[j] = studs[j + 1];
+            }
+
+
+            i--;
+
+            save();
+            printf("Account deleted successfully!\n");
+            break;
+        }
+        
+        if (!found){
+            printf("Account not found.\n");
+        }
+    }
 }
