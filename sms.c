@@ -36,6 +36,8 @@ int main(){
     int choice; 
     int courseC;
 
+    load();
+
     while (true){
     printf("\n===============System Management System================\n"
         "1. Create Account\n"
@@ -93,9 +95,18 @@ int main(){
             case 5:
                 delete();
 
+                printf("\nPress Enter to return to Main Menu...");
+                while (getchar() != '\n');
+                getchar();
+                break;
+
             case 6:
                 totalS();
-            
+
+                printf("\nPress Enter to return to Main Menu...");
+                while (getchar() != '\n');
+                getchar();
+                break;
             case 7:
 
                 save();
@@ -103,7 +114,6 @@ int main(){
                 printf("Exiting the program. \n");
                 exit(0);
 
-                
             default:
                 printf("Invalid option, try again!");
 
@@ -125,9 +135,9 @@ void load(){
     }
 
 
-    while(i < 100 && 
+    while(i < 50 && 
         fscanf(file, 
-        "[%49[^|]|%20[^|]|%d|%f|%d",
+        "%19[^|]|%19[^|]|%d|%f|%d\n",
         studs[i].first,
         studs[i].last,
         &studs[i].roll_n,
@@ -144,7 +154,7 @@ void load(){
 
 void ref_screen(){
 
-    printf("\033[H\033[j");
+    printf("\033[H\033[J");
     fflush(stdout);
 }
 
@@ -184,19 +194,19 @@ void addstud(){
 
 
     printf("First Name: ");
-    scanf("%s", &studs[i].first);
+    scanf("%20zs", studs[i].first);
     printf("Last Name: ");
-    scanf("%s", &studs[i].last);
+    scanf("%20s", studs[i].last);
     printf("Enter you CGPA: ");
-    scanf("%.2f", &studs[i].CGPA);
-    printf("==========Available Course==========="
-            "101 - Computer Programming"
-            "102 - Discrete Mathematics"
-            "103 - Computer Organization"
-            "104 - Web Development"
-            "105 - Database Systems"
+    scanf("%f", &studs[i].CGPA);
+    printf("\n==========Available Course===========\n"
+            "101 - Computer Programming\n"
+            "102 - Discrete Mathematics\n"
+            "103 - Computer Organization\n"
+            "104 - Web Development\n"
+            "105 - Database Systems\n"
             );
-    scanf("%s", &studs[i].course);
+    scanf("%d", &studs[i].course[0]);
 
             
 
@@ -227,7 +237,7 @@ void Frl(){
 
             printf("NAME: %s %s\n", studs[x].first, studs[i].last);
             printf("CGPA: %.2f\n", studs[x].CGPA);
-            printf("COURSE: %d", studs[x].course);
+            printf("COURSE: %d", studs[x].course[0]);
 
             found = true;
             break;
@@ -249,13 +259,13 @@ void Fname(){
     scanf("%d", &find);
 
     for(int x = 0; x < i; x++){
-        if(studs[x].first == find)
+        if(strcmp(studs[x].first, find) == 0)
 
 
-        printf("First Name: %s", studs[x].first);
-        printf("Last Name: %s", studs[x].last);
-        printf("Roll Number: %d", studs[x].roll_n);
-        printf("CGPA: %f", studs[x].CGPA);
+        printf("First Name: %s\n", studs[x].first);
+        printf("Last Name: %s\n", studs[x].last);
+        printf("Roll Number: %d\n", studs[x].roll_n);
+        printf("CGPA: %f\n", studs[x].CGPA);
         printf("Course ID: %d", studs[x].course);
 
 
@@ -292,18 +302,18 @@ void update(){
     scanf("%d", &find);
 
 
-    for(int x = 0; x < i; i++){
+    for(int x = 0; x < i; x++){
 
         if(studs[x].roll_n == find){
 
             printf("First Name: ");
-            scanf("%s", &studs[i].first);
+            scanf("%s", &studs[x].first);
 
             printf("Last Name: ");
-            scanf("%s", &studs[i].last);
+            scanf("%s", &studs[x].last);
 
             printf("Enter you CGPA: ");
-            scanf("%.2f", &studs[i].CGPA);
+            scanf("%f", &studs[x].CGPA);
 
             printf("==========Available Course==========="
                     "101 - Computer Programming"
@@ -335,7 +345,7 @@ void delete(){
     printf("Enter your Roll Number: ");
     scanf("%d", &find);
 
-    for(int x = 0; x < i; i++){
+    for(int x = 0; x < i; x++){
 
         if(studs[x].roll_n == find){
             found = true;
