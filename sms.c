@@ -12,7 +12,12 @@ struct student{
     char last[20];
     int roll_n;
     float CGPA;
-    int course[15];
+    int course;
+
+    char Cname;
+
+
+
 };
 
 struct student studs[50];
@@ -124,6 +129,7 @@ int main(){
         }
     }
     
+    return 0;
 }
 void load(){
     FILE *file;
@@ -131,7 +137,8 @@ void load(){
     file = fopen(FILE_NAME, "r");
 
     if (file == NULL){
-        printf("Student Account Not Found.");
+        printf("Student Account Not Found.\n");
+        return;
     }
 
 
@@ -142,7 +149,8 @@ void load(){
         studs[i].last,
         &studs[i].roll_n,
         &studs[i].CGPA,
-        &studs[i].course) == 5){
+        &studs[i].course,
+        studs[i].Cname) == 8){
             if(studs[i].roll_n >= rol){
                 rol = studs[i].roll_n + 1;
             }
@@ -164,18 +172,19 @@ void save(){
     file = fopen(FILE_NAME, "w");
 
     if (file == NULL){
-        printf("Student Account Not Found.");
-        
+        printf("Student Account Not Found.\n");
+        return;
     }
 
     for( int x = 0; x < i; x++){
 
-        fprintf(file,"%s|%s|%d|%f|%d",
+        fprintf(file,"%s|%s|%d|%f|%d\n",
                 studs[x].first,
                 studs[x].last,
                 studs[x].roll_n,
                 studs[x].CGPA,
-                studs[x].course);
+                studs[x].course,
+                studs[x].Cname);
 
     }
     fclose(file);
@@ -194,9 +203,9 @@ void addstud(){
 
 
     printf("First Name: ");
-    scanf("%20zs", studs[i].first);
+    scanf("%19s", studs[i].first);
     printf("Last Name: ");
-    scanf("%20s", studs[i].last);
+    scanf("%19s", studs[i].last);
     printf("Enter you CGPA: ");
     scanf("%f", &studs[i].CGPA);
     printf("\n==========Available Course===========\n"
@@ -206,9 +215,30 @@ void addstud(){
             "104 - Web Development\n"
             "105 - Database Systems\n"
             );
-    scanf("%d", &studs[i].course[0]);
-
+    scanf("%d", &studs[i].course);
             
+            if (studs[i].course == 101){
+                strcpy(studs[i].Cname, "Computer Programming");
+            }
+                else if (studs[i].course == 102){
+                strcpy(studs[i].Cname, "Discrete Mathematics");
+            }
+                else if (studs[i].course == 103){
+                strcpy(studs[i].Cname, "Computer Organization");
+            }
+            
+            else if (studs[i].course == 104){
+                strcpy(studs[i].Cname, "Web Development");
+            }
+
+            else if (studs[i].course == 105){
+                strcpy(studs[i].Cname, "Database Systems");
+            }
+
+                else{
+                    printf("Invalid Course Id\n");
+                    return;
+                }
 
         printf("\nAccount Successfully Created!\n");
         printf("Your Roll Number: %d\n", studs[i].roll_n);
@@ -235,9 +265,10 @@ void Frl(){
 
         if(studs[x].roll_n == find){
 
-            printf("NAME: %s %s\n", studs[x].first, studs[i].last);
+            printf("NAME: %s %s\n", studs[x].first, studs[x].last);
+            printf("ROLL NUMBER: %d\n", studs[x].roll_n);
             printf("CGPA: %.2f\n", studs[x].CGPA);
-            printf("COURSE: %d", studs[x].course[0]);
+            printf("COURSE: %d - %s\n", studs[x].course, studs[x].Cname);
 
             found = true;
             break;
@@ -252,21 +283,20 @@ void Frl(){
 
 void Fname(){
     
-    char find[20];
+    char find;
     bool found = false;
 
     printf("Enter your First Name: ");
-    scanf("%d", &find);
+    scanf("%19s", &find);
 
     for(int x = 0; x < i; x++){
         if(strcmp(studs[x].first, find) == 0)
 
 
-        printf("First Name: %s\n", studs[x].first);
-        printf("Last Name: %s\n", studs[x].last);
+        printf("Name: %s %S\n", studs[x].first, studs[x].last);
         printf("Roll Number: %d\n", studs[x].roll_n);
         printf("CGPA: %f\n", studs[x].CGPA);
-        printf("Course ID: %d", studs[x].course);
+        printf("COURSE: %d - %s\n", studs[x].course, studs[x].Cname);
 
 
         found = true;
@@ -280,15 +310,13 @@ void Fname(){
 
 
 void totalS(){
-
+    printf("================================ ");
     printf("The total number of students "
             "is %d\n", i);
-
     printf("\nYou can only have maximum # "
             "of 50 students\n");
-
     printf("\nYou can have %d more students", 50 - i);
-    
+    printf("================================ ");
 }
 
 
@@ -314,6 +342,8 @@ void update(){
 
             printf("Enter you CGPA: ");
             scanf("%f", &studs[x].CGPA);
+
+
 
             printf("==========Available Course==========="
                     "101 - Computer Programming"
@@ -368,3 +398,5 @@ void delete(){
         }
     }
 }
+
+
