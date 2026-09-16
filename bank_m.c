@@ -6,6 +6,15 @@
 
 #define FILE_NAME "bank_m.txt"
 
+#define RESET "\033[0m"
+#define CYAN "\033[36m"
+#define BLUE "\033[34m"
+#define GREEN "\033[32m"
+#define YELLOW "\033[33m"
+#define RED "\033[31m"
+#define WHITE "\033[37m"
+#define BOLD "\033[1m"
+
 
 struct account {
     int accountNumber;
@@ -34,9 +43,13 @@ void deleteAccount();
 void saveAccount();
 void loadAccount();
 void refreshScreen();
+void showHeader(const char *title);
+void pauseScreen();
 
 
 int main(){
+    
+    system("chcp 65001 > nul");
 
     int choice;
 
@@ -46,120 +59,88 @@ int main(){
 
         refreshScreen();
 
-        printf("\nWelcome to the Bank Management System\n");
-        printf("1. Create Account\n");
-        printf("2. View Account\n");
-        printf("3. Deposit\n");
-        printf("4. Withdraw\n");
-        printf("5. Check Balance\n");
-        printf("6. Search Account\n");
-        printf("7. Update Account\n");
-        printf("8. Delete account\n");
-        printf("9. Exit\n");
+        printf("%s%s", CYAN, BOLD);
+        printf("╔══════════════════════════════════════════════════════════╗\n");
+        printf("║                 BANK MANAGEMENT SYSTEM                   ║\n");
+        printf("╠══════════════════════════════════════════════════════════╣\n");
+        printf("║  1. Create Account                                       ║\n");
+        printf("║  2. View Account                                         ║\n");
+        printf("║  3. Deposit                                              ║\n");
+        printf("║  4. Withdraw                                             ║\n");
+        printf("║  5. Check Balance                                        ║\n");
+        printf("║  6. Search Account                                       ║\n");
+        printf("║  7. Update Account                                       ║\n");
+        printf("║  8. Delete Account                                       ║\n");
+        printf("║  9. Exit                                                 ║\n");
+        printf("╚══════════════════════════════════════════════════════════╝%s\n", RESET);
 
-
-        printf("\nEnter choice: ");
+        printf("%sEnter choice: %s", YELLOW, RESET);
 
         if(scanf("%d", &choice) != 1){
             while(getchar() != '\n');
-            printf("Invalid input.\n");
+            refreshScreen();
+            showHeader("INVALID INPUT");
+            printf("%sPlease enter a number from 1 to 9.%s\n", RED, RESET);
+            pauseScreen();
             continue;
         }
 
-
         refreshScreen();
-
 
         switch(choice) {
 
             case 1:
                 createAccount();
-
-                printf("\nPress Enter to return to Main Menu...");
-                while (getchar() != '\n');
-                getchar();
+                pauseScreen();
                 break;
-
 
             case 2:
                 viewAccount();
-
-                printf("\nPress Enter to return to Main Menu...");
-                while (getchar() != '\n');
-                getchar();
+                pauseScreen();
                 break;
-
 
             case 3:
                 deposit();
-
-                printf("\nPress Enter to return to Main Menu...");
-                while (getchar() != '\n');
-                getchar();
+                pauseScreen();
                 break;
-
 
             case 4:
                 withdraw();
-
-                printf("\nPress Enter to return to Main Menu...");
-                while (getchar() != '\n');
-                getchar();
+                pauseScreen();
                 break;
-
 
             case 5:
                 checkBalance();
-
-                printf("\nPress Enter to return to Main Menu...");
-                while (getchar() != '\n');
-                getchar();
+                pauseScreen();
                 break;
-
 
             case 6:
                 searchAccount();
-
-                printf("\nPress Enter to return to Main Menu...");
-                while (getchar() != '\n');
-                getchar();
+                pauseScreen();
                 break;
-
 
             case 7:
                 updateAccount();
-
-                printf("\nPress Enter to return to Main Menu...");
-                while (getchar() != '\n');
-                getchar();
+                pauseScreen();
                 break;
-
 
             case 8:
                 deleteAccount();
-
-                printf("\nPress Enter to return to Main Menu...");
-                while (getchar() != '\n');
-                getchar();
+                pauseScreen();
                 break;
-
 
             case 9:
                 saveAccount();
-
-                printf("Exiting the program.\n");
-                exit(0);
-
+                refreshScreen();
+                showHeader("EXIT");
+                printf("%sThank you for using the Bank Management System.%s\n", GREEN, RESET);
+                return 0;
 
             default:
-                printf("Invalid option, try again!");
-
-                printf("\nPress Enter to return to Main Menu...");
-                while(getchar() != '\n');
-                getchar();
-
+                showHeader("INVALID OPTION");
+                printf("%sPlease select an option from 1 to 9.%s\n", RED, RESET);
+                pauseScreen();
         }
-
     }
 }
 
@@ -177,7 +158,7 @@ void createAccount()
     nextAccountNumber++;
 
 
-    printf("\n========== CREATE ACCOUNT ==========\n");
+    showHeader("CREATE ACCOUNT");
 
 
     printf("Name: ");
@@ -233,7 +214,7 @@ void viewAccount()
     bool found = false;
 
 
-    printf("\n========== VIEW ACCOUNT ==========\n");
+    showHeader("VIEW ACCOUNT");
 
 
     printf("Enter account number: ");
@@ -288,7 +269,7 @@ void deposit()
     float amount;
 
 
-    printf("\n========== DEPOSIT ==========\n");
+    showHeader("DEPOSIT");
 
 
     printf("Enter account number: ");
@@ -353,7 +334,7 @@ void withdraw()
     float amount;
 
 
-    printf("\n========== WITHDRAW ==========\n");
+    showHeader("WITHDRAW");
 
 
     printf("Enter account number: ");
@@ -427,7 +408,7 @@ void checkBalance()
     bool found = false;
 
 
-    printf("\n========== CHECK BALANCE ==========\n");
+    showHeader("CHECK BALANCE");
 
 
     printf("Enter account number: ");
@@ -479,7 +460,7 @@ void searchAccount()
     bool found = false;
 
 
-    printf("\n========== SEARCH ACCOUNT ==========\n");
+    showHeader("SEARCH ACCOUNT");
 
 
     printf("Enter account number: ");
@@ -535,7 +516,7 @@ void updateAccount()
     bool found = false;
 
 
-    printf("\n========== UPDATE ACCOUNT ==========\n");
+    showHeader("UPDATE ACCOUNT");
 
 
     printf("Account Number: ");
@@ -597,7 +578,7 @@ void deleteAccount()
     bool found = false;
 
 
-    printf("\n========== DELETE ACCOUNT ==========\n");
+    showHeader("DELETE ACCOUNT");
 
 
     printf("Account Number: ");
@@ -724,6 +705,21 @@ void loadAccount()
 
 }
 
+
+void showHeader(const char *title)
+{
+    printf("%s%s", CYAN, BOLD);
+    printf("╔══════════════════════════════════════════════════════════╗\n");
+    printf("║ %-54s ║\n", title);
+    printf("╚══════════════════════════════════════════════════════════╝%s\n", RESET);
+}
+
+void pauseScreen()
+{
+    printf("\n%sPress Enter to return to Main Menu...%s", YELLOW, RESET);
+    while (getchar() != '\n');
+    getchar();
+}
 
 void refreshScreen()
 {

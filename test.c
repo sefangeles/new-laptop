@@ -1,4 +1,4 @@
-#include <stdio.h>
+/*#include <stdio.h>
 #include <stdlib.h>
 
 void refreshScreen() {
@@ -67,3 +67,46 @@ int main() {
 
     return 0;
 }
+   
+
+
+int main() {
+    int m[] = {1, 6, 7, 12, 14, 18};
+    int length = sizeof(m) / sizeof(m[0]); 
+    int c = 0;
+
+    for (int i = 0; i < length; i++) {
+        // Explicitly check for both conditions
+        if (m[i] % 6 == 0) {
+            c++;
+        }
+    }
+
+    printf("Count: %d\n", c);
+    return 0;
+}*/ 
+   
+
+#include <stdio.h>
+
+int main(){
+    int m[] = {-1, -7, 1, 6, 7, 12, 14, 18};
+    int length = sizeof(m) / sizeof(m[0]); 
+    int avg;
+    int pos_c = 0; 
+
+    int c = 0;
+
+    for (int i = 0; i < length; i++) {
+        if (m[i] > 0) {
+            c = c + m[i];
+            pos_c++;
+        } 
+    }
+        avg = c / pos_c;
+
+    printf("%d",  avg);
+    return 0;
+}
+
+
