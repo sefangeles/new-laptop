@@ -2,11 +2,13 @@
 #include <math.h>
 
 int main(){
-    int i;
+    int i, j;
 
-    for (i = 1; i <= 30; i++ ){
-        if (i % 3 == 0 || i % 5 == 0)
-            printf("%d ", i);
+    for (i = 1; i <= 9 ; i++ ){
+        for( j = 1; j <= 9; j++){
+            printf("%d ", i * j);
+        }
+        printf("\n");
     }
     return 0;
 }
